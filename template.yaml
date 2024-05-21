@@ -8,9 +8,20 @@ Resources:
       Runtime: 'nodejs18.x'
       Timeout: 10
       MemorySize: 1024
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+                - 'dynamodb:PutItem'
+              Resource: !GetAtt CryptoSearchHistoryTable.Arn
+            - Effect: 'Allow'
+              Action:
+                - 'ses:SendEmail'
+              Resource: '*'
       Environment:
         Variables:
-          TABLE_NAME: 'CryptoSearchHistory'
+          TABLE_NAME: !Ref CryptoSearchHistoryTable
       Events:
         Api:
           Type: 'Api'
@@ -24,6 +35,13 @@ Resources:
       Handler: 'src/searchHistoryService/handler.handler'
       Runtime: 'nodejs18.x'
       Timeout: 10
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+                - 'dynamodb:Scan'
+              Resource: !GetAtt CryptoSearchHistoryTable.Arn
       Environment:
         Variables:
           TABLE_NAME: 'CryptoSearchHistory'

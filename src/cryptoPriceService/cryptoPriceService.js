@@ -15,7 +15,6 @@ const getCryptoPrice = async (event) => {
   }
 
   try {
-    console.log('in try block');
     const url = `${COIN_GECKO_API_URL}?ids=${crypto}&vs_currencies=aud`;
     const response = await fetch(url);
     const data = await response.json();
@@ -25,8 +24,7 @@ const getCryptoPrice = async (event) => {
       throw new Error('Invalid cryptocurrency');
     }
 
-    // Waiting for Identity Verification in AWS
-    // await sendEmail(email, crypto, price);
+    await sendEmail(email, crypto, price);
     await saveSearchHistory(email, crypto);
 
     return {
