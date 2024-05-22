@@ -69,3 +69,30 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
+
+
+  ApiDocsBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      BucketName: !Sub "${AWS::StackName}-apidocs"
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  ApiDocsBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref ApiDocsBucket
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: '*'
+            Action:
+              - 's3:GetObject'
+            Resource: !Sub "arn:aws:s3:::${ApiDocsBucket}/*"
+
+Outputs:
+  ApiDocsBucketUrl:
+    Description: "URL for the API documentation"
+    Value: !Sub "http://${ApiDocsBucket}.s3-website-${AWS::Region}.amazonaws.com/"
