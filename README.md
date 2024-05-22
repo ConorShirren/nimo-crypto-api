@@ -8,8 +8,8 @@ This project sets up a serverless architecture using AWS SAM (Serverless Applica
 
 The SAM template provisions the following AWS resources:
 1. **Lambda Functions**:
-   - `GetCryptoPriceAndSendEmailFunction`: Fetches the cryptocurrency price and sends an email.
-   - `GetSearchHistoryFunction`: Retrieves the search history from DynamoDB.
+   - `GetCryptoPriceAndSendEmailFunction`: Fetches the cryptocurrency price from CoinGecko and sends an email to the user via AWS SES.
+   - `GetSearchHistoryFunction`: Retrieves all search history from DynamoDB.
 
 ![lambdas](./assets/lambdas.jpg)
 
@@ -23,7 +23,7 @@ The SAM template provisions the following AWS resources:
 Github Actions is used to automatically deploy resources to AWS after a succesful merge of dev into main. 
 
 ### Notes
-- AWS SES is used to send emails. At the moment, my personal email (cshirren@gmail.com) and a demo email account have be pre-validated as known identities for AWS SES - this is required as my AWS Account is in a Sandbox Env. The below email account can be used to test the API endpoints and view subsequent emails. 
+- AWS SES is used to send emails. At the moment, my personal email (cshirren@gmail.com) and a demo email account have been pre-validated as known identities for AWS SES - this is required as my AWS Account is in a Sandbox Env. The below email account can be used to test the API endpoints and view subsequent emails. 
     - email: conorshirren.nimo@gmail.com
     - password: conorshirren
 
@@ -32,15 +32,14 @@ Github Actions is used to automatically deploy resources to AWS after a succesfu
 
 ### Further Improvements
 I do understand that this solution is far from perfect. If I was to spend more time developing this solutions further, I would focus on the following areas:
-- Improve my use of middleware for error handling and logging
 - Improve API schema/error responses for better client experience
-- Abstract some of the repeated error handling out to a shared util
+- Improve use of middleware for error handling and logging
 - Add proper auth using JWT to protect the API.
-- Investigate memory usage and allocation of lambda and perform cost optimization
+- Review resources performance and perform cost optimization
 - Add rate limiting protection to the API, along with improving the searchHistory API to return paginated data/query by email.
 - Improve on project structure and layout
 
-## Getting Started
+# Getting Started
 
 To run the project locally you will need to:
 1. Clone the repository:
@@ -90,7 +89,7 @@ npm test
 ```
 ### Testing via Postman
 
-I have also provided a postman collection that can be easily imported to manually test the API. This can be found at `postman/Nimo Developer Test.postman_collection.json`
+I have also provided a simple postman collection that can be easily imported to manually test the API. This can be found at `postman/Nimo Developer Test.postman_collection.json`
 
 ![postman](./assets/postman.jpg)
 
