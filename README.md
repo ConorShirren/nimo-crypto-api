@@ -1,1 +1,3 @@
-# nimo-crypto-api
+# Nimo Crypto API
+
+Written by Conor Shirren
