@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  GetCryptoPriceAndSendEmailFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: 'src/cryptoPriceService/handler.handler'
+      Runtime: 'nodejs18.x'
+      Timeout: 10
+      MemorySize: 1024
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+                - 'dynamodb:PutItem'
+              Resource: !GetAtt CryptoSearchHistoryTable.Arn
+            - Effect: 'Allow'
+              Action:
+                - 'ses:SendEmail'
+              Resource: '*'
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref CryptoSearchHistoryTable
+      Events:
+        Api:
+          Type: 'Api'
+          Properties:
+            Path: '/getCryptoPrice'
+            Method: 'post'
+
+  GetSearchHistoryFunction:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: 'src/searchHistoryService/handler.handler'
+      Runtime: 'nodejs18.x'
+      Timeout: 10
+      Policies:
+        - Version: '2012-10-17'
+          Statement:
+            - Effect: 'Allow'
+              Action:
+                - 'dynamodb:Scan'
+              Resource: !GetAtt CryptoSearchHistoryTable.Arn
+      Environment:
+        Variables:
+          TABLE_NAME: 'CryptoSearchHistory'
+      Events:
+        Api:
+          Type: 'Api'
+          Properties:
+            Path: '/getSearchHistory'
+            Method: 'post'
+
+  CryptoSearchHistoryTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      TableName: 'CryptoSearchHistory'
+      AttributeDefinitions:
+        - AttributeName: 'email'
+          AttributeType: 'S'
+        - AttributeName: 'timestamp'
+          AttributeType: 'S'
+      KeySchema:
+        - AttributeName: 'email'
+          KeyType: 'HASH'
+        - AttributeName: 'timestamp'
+          KeyType: 'RANGE'
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
