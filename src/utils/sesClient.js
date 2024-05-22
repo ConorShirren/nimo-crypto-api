@@ -52,9 +52,9 @@ const sendEmail = async (email, crypto, price) => {
                   </div>
                   <div class="content">
                     <p>Dear Reader,</p>
-                    <p>We are excited to bring you the latest price of ${cypto} from the Gecko API.</p>
+                    <p>We are excited to bring you the latest price of ${crypto} from the Gecko API.</p>
                     <ul>
-                      <li><strong>Current Price:</strong> AU${price}</li>
+                      <li><strong>Current Price:</strong> AU$${price}</li>
                     </ul>
                     <p>We hope you enjoy using our service. Stay tuned for more updates!</p>                  
                   </div>
