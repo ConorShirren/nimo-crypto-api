@@ -65,7 +65,8 @@ const sendEmail = async (email, crypto, price) => {
                 </div>
               </body>
             </html>
-            `
+            `,
+        },
       },
       Subject: { Data: 'Cryptocurrency Price Alert' },
     },
