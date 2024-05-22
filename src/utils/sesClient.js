@@ -2,14 +2,15 @@ const AWS = require('aws-sdk');
 const ses = new AWS.SES({ region: 'us-east-1' });
 
 const sendEmail = async (email, crypto, price) => {
-  const params = {
-    Destination: {
-      ToAddresses: [email],
-    },
-    Message: {
-      Body: {
-        Html: {
-          Data: `   
+  try {
+    const params = {
+      Destination: {
+        ToAddresses: [email],
+      },
+      Message: {
+        Body: {
+          Html: {
+            Data: `   
            <html>
               <head>
                 <style>
@@ -66,14 +67,18 @@ const sendEmail = async (email, crypto, price) => {
               </body>
             </html>
             `,
+          },
         },
+        Subject: { Data: 'Cryptocurrency Price Alert' },
       },
-      Subject: { Data: 'Cryptocurrency Price Alert' },
-    },
-    Source: email,
-  };
+      Source: email,
+    };
 
-  return ses.sendEmail(params).promise();
+    return ses.sendEmail(params).promise();
+  } catch (error) {
+    console.error('Error sending email:', error);
+    throw error; // Re-throw the error for the caller to handle
+  }
 };
 
 module.exports = { sendEmail };
