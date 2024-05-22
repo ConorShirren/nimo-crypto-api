@@ -70,14 +70,12 @@ Resources:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
 
-
   ApiDocsBucket:
-    Type: 'AWS::S3::Bucket'
-    Properties:
-      BucketName: !Sub "${AWS::StackName}-apidocs"
-      AccessControl: PublicRead
-      WebsiteConfiguration:
-        IndexDocument: index.html
+      Type: 'AWS::S3::Bucket'
+      Properties:
+        BucketName: !Sub "${AWS::StackName}-apidocs"
+        WebsiteConfiguration:
+          IndexDocument: index.html
 
   ApiDocsBucketPolicy:
     Type: 'AWS::S3::BucketPolicy'
