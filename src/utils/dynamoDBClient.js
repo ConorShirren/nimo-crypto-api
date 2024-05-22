@@ -11,7 +11,13 @@ const saveSearchHistory = async (email, crypto) => {
     },
   };
 
-  return dynamoDB.put(params).promise();
+  try {
+    await dynamoDB.put(params).promise();
+    return { success: true };
+  } catch (error) {
+    console.error('Error saving search history:', error);
+    throw error; // Re-throw the error for the caller to handle
+  }
 };
 
 const getSearchHistory = async () => {
@@ -19,7 +25,12 @@ const getSearchHistory = async () => {
     TableName: process.env.TABLE_NAME,
   };
 
-  return dynamoDB.scan(params).promise();
+  try {
+    return dynamoDB.scan(params).promise();
+  } catch (error) {
+    console.error('Error fetching search history:', error);
+    throw error; // Re-throw the error for the caller to handle
+  }
 };
 
 module.exports = { saveSearchHistory, getSearchHistory };
