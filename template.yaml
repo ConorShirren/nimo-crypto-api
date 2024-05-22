@@ -50,7 +50,7 @@ Resources:
           Type: 'Api'
           Properties:
             Path: '/getSearchHistory'
-            Method: 'post'
+            Method: 'get'
 
   CryptoSearchHistoryTable:
     Type: 'AWS::DynamoDB::Table'
