@@ -1,0 +1,125 @@
+openapi: 3.0.1
+info:
+  title: Crypto Price Service
+  description: This service fetches the current price of a specified cryptocurrency and sends it via email. It also saves the search history to a DynamoDB table and retrieves the search history.
+  version: 1.0.0
+servers:
+  - url: https://6oq24e3utf.execute-api.us-east-1.amazonaws.com/Stage
+paths:
+  /getCryptoPrice:
+    post:
+      summary: Get the current price of a cryptocurrency
+      operationId: getCryptoPrice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: conorshirren.nimo@gmail.com
+                  description: The email address to send the cryptocurrency price to.
+                crypto:
+                  type: string
+                  example: bitcoin
+                  description: The ID of the cryptocurrency to fetch the price for (e.g., 'bitcoin').
+      responses:
+        '200':
+          description: Email sent successfully with the current price of the cryptocurrency.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Email sent to conorshirren.nimo@gmail.com with the current of bitcoin: 45000 AUD."
+                    description: A success message containing details of the email sent.
+        '400':
+          description: Invalid input, email and cryptocurrency are required.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Email and cryptocurrency are required.
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Failed to fetch cryptocurrency price.
+  /getSearchHistory:
+    get:
+      summary: Retrieve search history
+      operationId: getSearchHistory
+      responses:
+        '200':
+          description: Successfully retrieved search history.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      example: conorshirren.nimo@gmail.com
+                    crypto:
+                      type: string
+                      example: bitcoin
+                    timestamp:
+                      type: string
+                      format: date-time
+                      example: 2024-05-23T14:48:00.000Z
+              example:
+                - email: conorshirren.nimo@gmail.com
+                  crypto: bitcoin
+                  timestamp: 2024-05-22T05:34:28.652Z
+                - email: conorshirren.nimo@gmail.com
+                  crypto: bitcoin
+                  timestamp: 2024-05-22T05:42:38.035Z
+                - email: conorshirren.nimo@gmail.com
+                  crypto: bitcoin
+                  timestamp: 2024-05-22T08:13:35.098Z
+                - email: conorshirren.nimo@gmail.com
+                  crypto: bitcoin
+                  timestamp: 2024-05-22T11:17:52.295Z
+                - email: conorshirren.nimo@gmail.com
+                  crypto: bitcoin
+                  timestamp: 2024-05-22T11:52:07.484Z
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Failed to fetch search history.
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message.
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Success message with details.
