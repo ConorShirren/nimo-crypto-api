@@ -1,0 +1,173 @@
+{
+	"info": {
+		"_postman_id": "39c521d9-e571-45b6-b264-49fae43f9ce9",
+		"name": "Nimo Developer Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7856049"
+	},
+	"item": [
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "getPrice LOCAL",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"conorshirren.nimo@gmail.com\",\n    \"crypto\": \"bitcoin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/getCryptoPrice",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"getCryptoPrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSearchHistory LOCAL",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/getSearchHistory",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"getSearchHistory"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GECKO API",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=aud",
+							"protocol": "https",
+							"host": [
+								"api",
+								"coingecko",
+								"com"
+							],
+							"path": [
+								"api",
+								"v3",
+								"simple",
+								"price"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "bitcoin"
+								},
+								{
+									"key": "vs_currencies",
+									"value": "aud"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AWS",
+			"item": [
+				{
+					"name": "getPrice AWS",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"conorshirren.nimo@gmail.com\",\n    \"crypto\": \"bitcoin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://6oq24e3utf.execute-api.us-east-1.amazonaws.com/Stage/getCryptoPrice",
+							"protocol": "https",
+							"host": [
+								"6oq24e3utf",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Stage",
+								"getCryptoPrice"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSearchHistory AWS",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://6oq24e3utf.execute-api.us-east-1.amazonaws.com/Stage/getSearchHistory",
+							"protocol": "https",
+							"host": [
+								"6oq24e3utf",
+								"execute-api",
+								"us-east-1",
+								"amazonaws",
+								"com"
+							],
+							"path": [
+								"Stage",
+								"getSearchHistory"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
