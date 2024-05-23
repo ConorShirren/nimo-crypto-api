@@ -70,7 +70,7 @@ jobs:
 
 
 ### Further Improvements
-I do understand that this solution is far from perfect. If I was to spend more time developing this solutions further, I would focus on the following areas:
+I do understand that this solution is far from perfect. If I was to spend more time developing this solution, I would focus on the following areas:
 - Better Function and API Route naming in AWS
 - Improve API schema/error responses for better client experience
 - Improve use of middleware for error handling and logging
@@ -124,12 +124,6 @@ This API endpoint can be hit with a GET request at: https://6oq24e3utf.execute-a
 
 ## Testing
 
-### Unit Testing
-Run unit tests with Jest:
-
-```bash
-   npm test
-```
 ### Testing via Postman
 
 I have also provided a simple postman collection that can be easily imported to manually test the API. This can be found at `postman/Nimo Developer Test.postman_collection.json`
