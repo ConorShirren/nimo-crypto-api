@@ -62,7 +62,7 @@ jobs:
 ```
 
 ### Notes
-- AWS SES is used to send emails. At the moment, my personal email (cshirren@gmail.com) and a demo email account have been pre-validated as known identities for AWS SES - this is required as my AWS Account is in a Sandbox Env. The below email account can be used to test the API endpoints and view subsequent emails. 
+- AWS SES is used to send emails. At the moment, my personal email (cshirren@gmail.com) and a demo email account have been pre-validated as known identities for AWS SES - this is required as my AWS Account is in a Sandbox Env. The below email account can be used to test the API endpoints and view subsequent emails. If you have any issues accessing this mailbox, please contact me at cshirren@gmail.com. 
     - email: conorshirren.nimo@gmail.com
     - password: conorshirren
 
